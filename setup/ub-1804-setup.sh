@@ -5,6 +5,7 @@ KUBERNETES_VERSION="1.15.1-00"
 
 # turn off swap - for the Kubelet
 swapoff -a 
+sudo sed -ri '/\sswap\s/s/^#?/#/' /etc/fstab
 
 # install Docker 18.09 (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 apt-get update
@@ -39,3 +40,6 @@ apt-get install -y \
     kubelet=$KUBERNETES_VERSION \
     kubeadm=$KUBERNETES_VERSION \
     kubectl=$KUBERNETES_VERSION
+
+# set iptables for Flannel
+sudo sysctl net.bridge.bridge-nf-call-iptables=1
