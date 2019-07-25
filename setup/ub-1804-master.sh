@@ -10,7 +10,7 @@ kubeadm init --pod-network-cidr=$POD_NETWORK_CIDR --service-cidr=$SERVICE_CIDR
 # install Flannel pod network
 sudo sysctl net.bridge.bridge-nf-call-iptables=1
 
-wget https://raw.githubusercontent.com/sixeyed/k8s-win/master/setup/flannel/kube-flannel-hybrid.yml
+wget https://raw.githubusercontent.com/sixeyed/k8s-win/master/setup/flannel/kube-flannel-hybrid.yaml
 
 kubectl apply -f kube-flannel-hybrid.yml
 
