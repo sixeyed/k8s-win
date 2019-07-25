@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: signup-db
+spec:
+  ports:
+    - port: 1433
+      targetPort: 1433
+      name: signup-db
+  selector:
+    app: signup-db
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signup-db
+spec:
+  selector:
+    matchLabels:
+      app: signup-db
+  template:
+    metadata:
+      labels:
+        app: signup-db
+    spec:
+      containers:
+      - image: mcr.microsoft.com/mssql/server:2017-CU14-ubuntu
+        name: signup-db
+        env:
+        - name: SA_PASSWORD
+          value: "DockerCon!!!"
+        - name: ACCEPT_EULA
+          value: "Y"
+        ports:
+        - containerPort: 1433
+          name: signup-db
+      nodeSelector:
+        beta.kubernetes.io/os: linux
