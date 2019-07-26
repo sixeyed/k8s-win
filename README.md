@@ -7,7 +7,11 @@ Scripts for setting up a local hybrid Kubernetes cluster, with a Linux master, L
 
 > The setup is documented here: [Getting Started with Kubernetes on Windows](https://blog.sixeyed.com/getting-started-with-kubernetes-on-windows/).
 
-## Credits
+## Apps
+
+There are also Kubernetes manifests for some [sample apps](./apps/README.md), running in Windows and Linux pods.
+
+### Credits
 
 The scripts are mostly hacked together from other scripts and docs:
 

@@ -27,11 +27,16 @@ spec:
       containers:
       - image: dockeronwindows/ch03-nerd-dinner-web:2e
         name: nerd-dinner-web
-        env:
-        - name: sa_password
-          value: "N3rdD!Nne720^6"
         ports:
         - containerPort: 80
           name: nerd-dinner-web
+        volumeMounts:
+          - name: nerd-dinner-config
+            mountPath: "/nerd-dinner/config"
+            readOnly: true
+      volumes:
+      - name: nerd-dinner-config
+        secret:
+          secretName: nerd-dinner-config
       nodeSelector:
         beta.kubernetes.io/os: windows
