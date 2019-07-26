@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nerd-dinner-web
+spec:
+  ports:
+    - port: 8080
+      targetPort: 80
+      name: nerd-dinner-web
+  selector:
+    app: nerd-dinner-web
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nerd-dinner-web
+spec:
+  selector:
+    matchLabels:
+      app: nerd-dinner-web
+  template:
+    metadata:
+      labels:
+        app: nerd-dinner-web
+    spec:
+      containers:
+      - image: dockeronwindows/ch03-nerd-dinner-web:2e
+        name: nerd-dinner-web
+        env:
+        - name: sa_password
+          value: "N3rdD!Nne720^6"
+        ports:
+        - containerPort: 80
+          name: nerd-dinner-web
+      nodeSelector:
+        beta.kubernetes.io/os: windows
