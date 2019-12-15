@@ -89,3 +89,5 @@ $sourceVipJSON = Get-Content sourceVip.json | ConvertFrom-Json
 $sourceVip = $sourceVipJSON.ip4.ip.Split("/")[0]
 .\nssm.exe set $KubeProxySvc AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=$Hostname --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=$sourceVip --enable-dsr=false --cluster-cidr=$ClusterCIDR --log-dir=$LogDir --logtostderr=false
 .\nssm.exe set $KubeProxySvc DependOnService $KubeletSvc
+.\nssm.exe start $KubeProxySvc
+
