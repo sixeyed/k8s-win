@@ -13,7 +13,7 @@ docker image tag mcr.microsoft.com/windows/nanoserver:1809 microsoft/nanoserver:
 # download the Kube binaries
 mkdir -p C:\k\logs
 cd C:\k
-$ProgressPreference=’SilentlyContinue’
+$ProgressPreference='SilentlyContinue'
 iwr -outf kubernetes-node-windows-amd64.tar.gz "https://dl.k8s.io/v$KUBERNETES_VERSION/kubernetes-node-windows-amd64.tar.gz"
 
 tar -xkf kubernetes-node-windows-amd64.tar.gz -C C:\k
@@ -89,4 +89,4 @@ $sourceVipJSON = Get-Content sourceVip.json | ConvertFrom-Json
 $sourceVip = $sourceVipJSON.ip4.ip.Split("/")[0]
 .\nssm.exe set $KubeProxySvc AppParameters --v=4 --proxy-mode=kernelspace --feature-gates="WinOverlay=true" --hostname-override=$Hostname --kubeconfig=c:\k\config --network-name=vxlan0 --source-vip=$sourceVip --enable-dsr=false --cluster-cidr=$ClusterCIDR --log-dir=$LogDir --logtostderr=false
 .\nssm.exe set $KubeProxySvc DependOnService $KubeletSvc
-.\nssm.exe start $KubeProxySvc
+.\nssm.exe start $KubeProxySvc 
